@@ -14,7 +14,8 @@
             class="fixed bottom-10 right-8 bg-gray-50 w-12 h-12 rounded-full drop-shadow-lg flex justify-center items-center hover:drop-shadow-xl">
       <IconLayoutCards color="gray"/>
     </button>
-    <SpinnerLoader class="flex justify-center h-screen items-center" v-if="!data"/>
+    <SpinnerLoader class="flex justify-center h-screen items-center" v-if="!data && netStatus"/>
+    <ExclamationIcon class="flex justify-center h-screen items-center" v-if="!netStatus && !data"/>
   </div>
 </template>
 
@@ -25,6 +26,7 @@ import {useCityStore} from "~/stores/city"
 import {useSettingsStore} from "~/stores/settings"
 import {IconLayoutCards} from '@tabler/icons-vue';
 import {vAutoAnimate} from '@formkit/auto-animate'
+import {useNetStatusStore} from '@/stores/netStatus';
 
 const store = useCityStore();
 const data = ref(null);
@@ -33,6 +35,7 @@ const isFetching = ref(null);
 const selectedCityId = ref(store.cityId);
 const settingsStore = useSettingsStore();
 const windowWidth = ref(window?.innerWidth)
+const netStatusStore = useNetStatusStore();
 
 onMounted(() => {
   fetchData(selectedCityId.value)
@@ -64,4 +67,5 @@ const refreshTheDay = async (cityId) => {
 const showPanel = computed(() => settingsStore.displayMode)
 const showSalateTimes = computed(() => settingsStore.showSalateTimes)
 const showSettings = computed(() => settingsStore.showSettings)
+const netStatus = computed(() => netStatusStore.status)
 </script>

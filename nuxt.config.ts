@@ -9,6 +9,10 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
     {
+      path: '~/components/utils',
+      pathPrefix: false,
+    },
+    {
       path: '~/components/partials/Nav',
       pathPrefix: false,
     },
